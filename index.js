@@ -10,8 +10,12 @@ const mongoose    = require('mongoose');
 const jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 const config = require('./config'); // get our config file
 const User   = require('./api/models/user'); // get our mongoose model
+const Student   = require('./api/models/student'); // get our mongoose model
 
 const apiRoutes = require('./api/controllers/users');
+const studentsRoutes = require('./api/controllers/students');
+const groupsRoutes = require('./api/controllers/groups');
+const users = require('./api/services/users');
 // =======================
 // configuration =========
 // =======================
@@ -39,28 +43,37 @@ app.get('/', function(req, res) {
 // API ROUTES -------------------
 
 
-app.get('/setup', function(req, res) {
+// route to authenticate a user (POST http://localhost:8080/api/authenticate)
+app.post('/authenticate', users.authenticate);
 
-    // create a sample user
-    let nick = new User({
-        firstName: 'Nick',
-        lastName: 'Cerminara',
-        password: 'password',
-        adminRight: true
-    });
+// app.get('/setup', function(req, res) {
+//
+//     // create a sample user
+//     const nick = new User({
+//         firstName: 'Nick',
+//         lastName: 'Cerminara',
+//         password: 'password',
+//         adminRight: true
+//     });
+//
+//     // save the sample user
+//     nick.save(function(err) {
+//         if (err) throw err;
+//
+//         console.log('User saved successfully');
+//         res.json({ success: true });
+//     });
+// });
 
-    // save the sample user
-    nick.save()
-        .then(
-            user => {
-                console.log('User saved successfully', user);
-                res.json({ success: true });
-});
+// route middleware to verify a token
+app.use(users.verifyToken);
 
-});
 
-// apply the routes to our application with the prefix /api
-app.use('/api', apiRoutes);
+// apply the routes to our application
+app.use('/students', studentsRoutes);
+app.use('/users', apiRoutes);
+app.use('/groups',  groupsRoutes);
+
 
 // =======================
 // start the server ======

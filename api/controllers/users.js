@@ -11,15 +11,6 @@ const config = require('../../config'); // get our config file
 const users = require('../services/users');
 
 
-
-// route to authenticate a user (POST http://localhost:8080/api/authenticate)
-apiRoutes.post('/authenticate', users.authenticate);
-
-
-// route middleware to verify a token
-apiRoutes.use(users.verifyToken);
-
-
 // route to show a random message (GET http://localhost:8080/api/)
 apiRoutes.get('/', function(req, res) {
     res.json({ message: 'Welcome to the coolest API on earth!', payload: req.decoded });

@@ -4,6 +4,6 @@
 module.exports = {
 
     'secret': 'bonjourfrançais',
-    'database': 'mongodb://localhost:27017/school'
+    'database': 'mongodb://localhost:27017/school_project'
 
 };
