@@ -28,8 +28,4 @@ apiRoutes.get('/users', function(req, res) {
 
 
 
-
-
-
-
 module.exports = apiRoutes;

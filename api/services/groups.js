@@ -34,7 +34,9 @@ console.log(groupNumber);
  **/
 exports.getGroups = function(req, res) {
 
-    Group.find({}).then(
+    Group.find({})
+        .populate('students')
+        .then(
         groups => {
 
             res.json({groups: groups});

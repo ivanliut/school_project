@@ -46,24 +46,6 @@ app.get('/', function(req, res) {
 // route to authenticate a user (POST http://localhost:8080/api/authenticate)
 app.post('/authenticate', users.authenticate);
 
-// app.get('/setup', function(req, res) {
-//
-//     // create a sample user
-//     const nick = new User({
-//         firstName: 'Nick',
-//         lastName: 'Cerminara',
-//         password: 'password',
-//         adminRight: true
-//     });
-//
-//     // save the sample user
-//     nick.save(function(err) {
-//         if (err) throw err;
-//
-//         console.log('User saved successfully');
-//         res.json({ success: true });
-//     });
-// });
 
 // route middleware to verify a token
 app.use(users.verifyToken);
